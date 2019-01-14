@@ -20,6 +20,8 @@ services:
       - redis_sentinel
       - redis_slave
       - redis_master
+    #volumes:
+    #  - ./btc/btc/matchengine/config.json://btc/matchengine/config.json
     links:
       - mysql:db
       - kafka:mq
