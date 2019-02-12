@@ -37,41 +37,43 @@
     },
     "assets": [
         {
-            "name": "USDT",
+            "name": "KRW",
             "prec_save": 20,
-            "prec_show": 8
+            "prec_show": 0
         }, {
             "name": "BTC",
             "prec_save": 12,
             "prec_show": 8
         }, {
-            "name": "LTC",
-            "prec_save": 12,
-            "prec_show": 8
-        }, {
-            "name": "ETH",
-            "prec_save": 12,
-            "prec_show": 8
-        }, {
-            "name": "ETC",
-            "prec_save": 12,
-            "prec_show": 8
-        }, {
-            "name": "ZEC",
-            "prec_save": 12,
-            "prec_show": 8
-        }, {
-            "name": "XMR",
-            "prec_save": 12,
-            "prec_show": 8
-        }, {
-            "name": "DSH",
-            "prec_save": 12,
+            "name": "USDT",
+            "prec_save": 20,
             "prec_show": 8
         }
     ],
     "markets": [
         {
+            "name": "BTCKRW",
+            "stock": {
+                "name": "BTC",
+                "prec": 8
+            },
+            "money": {
+                "name": "KRW",
+                "prec": 0
+            },
+            "min_amount": "0.0001"
+        }, {
+            "name": "USDTKRW",
+            "stock": {
+                "name": "USDT",
+                "prec": 8
+            },
+            "money": {
+                "name": "KRW",
+                "prec": 0
+            },
+            "min_amount": "0.0001"
+        }, {
             "name": "BTCUSDT",
             "stock": {
                 "name": "BTC",
@@ -81,73 +83,7 @@
                 "name": "USDT",
                 "prec": 8
             },
-            "min_amount": "0.001"
-        }, {
-            "name": "LTCUSDT",
-            "stock": {
-                "name": "LTC",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
-        }, {
-            "name": "ETHUSDT",
-            "stock": {
-                "name": "ETH",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
-        }, {
-            "name": "ETCUSDT",
-            "stock": {
-                "name": "ETC",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
-        }, {
-            "name": "ZECUSDT",
-            "stock": {
-                "name": "ZEC",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
-        }, {
-            "name": "XMRUSDT",
-            "stock": {
-                "name": "XMR",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
-        }, {
-            "name": "DSHUSDT",
-            "stock": {
-                "name": "DSH",
-                "prec": 8
-            },
-            "money": {
-                "name": "USDT",
-                "prec": 8
-            },
-            "min_amount": "0.001"
+            "min_amount": "0.0001"
         }
     ],
     "brokers": "mq:9092",
