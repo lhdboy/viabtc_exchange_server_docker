@@ -21,7 +21,7 @@ services:
       - redis_slave
       - redis_master
     #volumes:
-    #  - ./btc/btc/matchengine/config.json://btc/matchengine/config.json
+    #  - ./btc/btc/matchengine/config.json:/btc/matchengine/config.json
     links:
       - mysql:db
       - kafka:mq
