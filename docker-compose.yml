@@ -1,0 +1,125 @@
+version: '3.4'
+
+services:
+  btc:
+    privileged: true
+    container_name: btc-service
+    build: ./btc/
+    networks:
+      - nviabtc
+    ports:
+      - "17416:7416"
+      - "17316:7316"
+      - "17317:7317"
+      - "17424:7424"
+      - "14444:4444"
+      - "18080:8080"
+      - "18081:8081"
+      - "18091:8091"
+      - "18008:8008"
+    depends_on:
+      - zookeeper
+      - mysql
+      - kafka
+      - redis_sentinel
+      - redis_slave
+      - redis_master
+
+  redis_master:
+    container_name: btc-redis-master
+    networks:
+      - nviabtc
+    image: redis:4.0.2-alpine
+    ports:
+      - "16379:6379"
+
+  redis_slave:
+    container_name: btc-redis-slave
+    networks:
+      - nviabtc
+    image: redis:4.0.2-alpine
+    ports:
+      - "16380:6379"
+
+  redis_sentinel:
+    container_name: btc-redis-sentinel
+    build: redis
+    image: redis-sentinel
+    networks:
+      - nviabtc
+    environment:
+      - MASTER_NAME=mymaster
+      - QUORUM=1
+      - MASTER=redis_master
+      - SLAVES=redis_slave
+    depends_on:
+      - redis_master
+      - redis_slave
+    ports:
+      - "26379:26379"
+
+  mysql:
+    container_name: btc-mysql
+    build: ./db/
+    networks:
+      nviabtc:
+        aliases:
+          - db
+    ports:
+      - "13306:3306"
+
+  zookeeper:
+    container_name: btc-zookeeper1
+    image: zookeeper
+    networks:
+      - nviabtc
+    ports:
+      - "12181:2181"
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=0.0.0.0:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+
+  zookeeper2:
+    container_name: btc-zookeeper2
+    image: zookeeper
+    networks:
+      nviabtc:
+        aliases:
+          - zookeeper2
+    ports:
+      - "12182:2181"
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_SERVERS=server.1=zookeeper:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zookeeper3:2888:3888
+
+  zookeeper3:
+    container_name: btc-zookeeper3
+    image: zookeeper
+    networks:
+      nviabtc:
+        aliases:
+          - zookeeper3
+    ports:
+      - "12183:2181"
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zookeeper:2888:3888 server.2=zookeeper2:2888:3888 server.3=0.0.0.0:2888:3888
+
+  kafka:
+    container_name: btc-kafka
+    image: wurstmeister/kafka
+    networks:
+      - nviabtc
+    ports:
+      - "19092:9092"
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=192.168.1.11
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+
+networks:
+  nviabtc:
+    driver: bridge

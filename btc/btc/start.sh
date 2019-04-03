@@ -32,6 +32,8 @@ echo ">>> marketprice starting..." &&\
     /btc/wait-for-it.sh 127.0.0.1:7416 --timeout=60 --quiet --strict -- \
     echo ">>> marketprice started on 7416"
 
+service nginx start
+
 ps -ef
 
 tail -f /var/log/trade/matchengine.log
