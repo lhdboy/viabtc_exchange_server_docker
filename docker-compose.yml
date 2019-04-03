@@ -80,7 +80,9 @@ services:
     container_name: btc-kafka
     image: wurstmeister/kafka
     networks:
-      - nviabtc
+      nviabtc:
+        aliases:
+          - mq
     ports:
       - "19092:9092"
     environment:
