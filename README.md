@@ -1,5 +1,19 @@
 # Easy startup viabtc_exchange_server with docker
 
+The contents of this repo repair are only introduced in Chinese version.
+
+## 此repo修复和改进了哪些内容
+
++ 我在btc-service中新增了nginx用来反向代理accessws，你可以在外部用`ws://<server_ip_address>:18008`来访问
+
++ 使用3.4的版本来编写docker-compose.yml文件
+
+## 启动它我需要改动哪些地方
+
++ 将文件`/btc/btc/accessws/config.json`的**auth_url**参数和**sign_url**参数修改为你自己的服务器地址，配置的这两个地址当调用WebSocket的`server.auth`和`server.sign`这两个接口的时候他还请求在这里配置的服务器地址；你需要返回指定格式的json数据
+
++ 将文件`docker-compose.yml`节点的`service:kafka:environment`其中的**KAFKA_ADVERTISED_HOST_NAME**参数改为你**宿主机**的IP地址；**注意：这个地址不是你docker内的ip地址或hostname；是你外部主机的地址，否则你的应用无法访问kafka**
+
 [中文](README-zh.md)
 
 This is docker config to startup [viabtc_exchange_server](https://github.com/viabtc/viabtc_exchange_server) simply.
